@@ -1,7 +1,11 @@
 class Solution {
     public int shipWithinDays(int[] weights, int days) {
-        int left = maxWeight(weights);
-        int right = sumWeights(weights);
+        int left = 0, right = 0;
+        for(int w : weights){
+            left = Math.max(left, w);
+            right += w; 
+        }
+
         while (left <= right) {
             int mid = left + (right - left) / 2;
             if (canShip(weights, days, mid)) {
@@ -11,22 +15,6 @@ class Solution {
             }
         }
         return left;
-    }
-
-    public int maxWeight(int[] weights) {
-        int max = Integer.MIN_VALUE;
-        for (int w : weights) {
-            max = Math.max(max, w);
-        }
-        return max;
-    }
-
-    public int sumWeights(int[] weights) {
-        int sum = 0;
-        for (int w : weights) {
-            sum += w;
-        }
-        return sum;
     }
 
     public boolean canShip(int[] weights, int days, int capacity) {
